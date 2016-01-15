@@ -30,20 +30,19 @@ goog.require('Blockly.JavaScript');
 
 var processing_prefix = 'processing.';
 
-Blockly.JavaScript['ellipse'] = function(block) {
-  var value_coord_x = Blockly.JavaScript.valueToCode(block, 'coord_x', Blockly.JavaScript.ORDER_NONE);
-  var value_coord_y = Blockly.JavaScript.valueToCode(block, 'coord_y',Blockly.JavaScript.ORDER_NONE);
-  
-  var value_radius_x = Blockly.JavaScript.valueToCode(block, 'radius_x', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_radius_y = Blockly.JavaScript.valueToCode(block, 'radius_y', Blockly.JavaScript.ORDER_ATOMIC);
+Blockly.JavaScript['cor'] = function(block) {
+  var colour_name = block.getFieldValue('NAME');
   // TODO: Assemble JavaScript into code variable.
-  var code = "ellipse("+value_coord_x+","+value_coord_y+","+value_radius_x+","+value_radius_y+");\n";
-  
-  // code = 'console.log("'+ code+'");';
-  return code;
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };
-  
 
+
+
+
+
+/** PROCESSING **/
 Blockly.JavaScript['processing'] = function(block) {
 	var statements_decl = Blockly.JavaScript.statementToCode(block, 'DECL');
 	var statements_setup = Blockly.JavaScript.statementToCode(block, 'SETUP');
@@ -56,20 +55,11 @@ Blockly.JavaScript['processing'] = function(block) {
     // var code = 'uuhpss321s';
   return code;
 };
-
 Blockly.JavaScript['size'] = function(block) {
   var arg_0 = Blockly.JavaScript.valueToCode(block, 'width', Blockly.JavaScript.ORDER_ATOMIC);
   var arg_1 = Blockly.JavaScript.valueToCode(block, 'height', Blockly.JavaScript.ORDER_ATOMIC);
   
   var code = 'size('+arg_0+','+arg_1+');\n';
-  
-  return code;
-};
-
-Blockly.JavaScript['strokeWeight'] = function(block) {
-  var arg_0 = Blockly.JavaScript.valueToCode(block, 'weight', Blockly.JavaScript.ORDER_ATOMIC);
-  
-  var code = 'strokeWeight('+arg_0+');\n';
   
   return code;
 };
@@ -83,7 +73,6 @@ Blockly.JavaScript['background'] = function(block) {
   
   return code;
 };
-
 Blockly.JavaScript['fill'] = function(block) {
   var arg_0 = Blockly.JavaScript.valueToCode(block, 'r', Blockly.JavaScript.ORDER_ATOMIC);
   var arg_1 = Blockly.JavaScript.valueToCode(block, 'g', Blockly.JavaScript.ORDER_ATOMIC);
@@ -93,7 +82,6 @@ Blockly.JavaScript['fill'] = function(block) {
   
   return code;
 };
-
 Blockly.JavaScript['stroke'] = function(block) {
   var arg_0 = Blockly.JavaScript.valueToCode(block, 'r', Blockly.JavaScript.ORDER_ATOMIC);
   var arg_1 = Blockly.JavaScript.valueToCode(block, 'g', Blockly.JavaScript.ORDER_ATOMIC);
@@ -103,7 +91,14 @@ Blockly.JavaScript['stroke'] = function(block) {
   
   return code;
 };
-
+Blockly.JavaScript['strokeWeight'] = function(block) {
+  var arg_0 = Blockly.JavaScript.valueToCode(block, 'weight', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  var code = 'strokeWeight('+arg_0+');\n';
+  
+  return code;
+};
+/** MOUSE AND KEYBOARD **/ 
 Blockly.JavaScript['mouseX'] = function(block) {
   var code = "mouseX";
   
@@ -115,6 +110,30 @@ Blockly.JavaScript['mouseY'] = function(block) {
   
  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
+
+
+Blockly.JavaScript['mousePressed'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'mousePressed';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+Blockly.JavaScript['key'] = function(block) {
+  var code = 'key';
+  
+ return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+Blockly.JavaScript['keyPressed'] = function(block) {
+  var code = 'keyPressed';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+/** FIGURES **/
+
+function getField(block,field){
+	return Blockly.JavaScript.valueToCode(block, field,Blockly.JavaScript.ORDER_COMMA) || '0';
+}
+
 
 Blockly.JavaScript['rect'] = function(block) {
   var value_coord_x = Blockly.JavaScript.valueToCode(block, 'coord_x', Blockly.JavaScript.ORDER_NONE);
@@ -129,20 +148,50 @@ Blockly.JavaScript['rect'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['mousePressed'] = function(block) {
+
+Blockly.JavaScript['point'] = function(block) {
+	
+	var code = 'point('+getField(block,'coord_x')+','+getField(block,'coord_y')+');\n';
+	return code;
+}
+Blockly.JavaScript['line'] = function(block) {
+	var code = 'line';
+	var code = 'line('+getField(block,'x1')+','+getField(block,'y1')+','+getField(block,'x2')+','+getField(block,'y2')+');\n';
+	return code;
+}
+Blockly.JavaScript['arc'] = function(block) {
+	
+	var code = 'arc('+getField(block,'x')+','+getField(block,'y')+','+getField(block,'width')+','+getField(block,'height')+','+getField(block,'start')+','+getField(block,'stop')+');\n';
+	return code;
+}
+
+Blockly.JavaScript['triangle'] = function(block) {
+	
+	var code = 'triangle('+getField(block,'x1')+','+getField(block,'y1')+','+getField(block,'x2')+','+getField(block,'y2')+','+getField(block,'x3')+','+getField(block,'y3')+');\n';
+	return code;
+}
+
+Blockly.JavaScript['quad'] = function(block) {
+	
+	var code = 'quad('+getField(block,'x1')+','+getField(block,'y1')+','+getField(block,'x2')+','+getField(block,'y2')+','+getField(block,'x3')+','+getField(block,'y3')+','+getField(block,'x4')+','+getField(block,'y4')+');\n';
+	return code;
+}
+
+Blockly.JavaScript['ellipse'] = function(block) {
+  var value_coord_x = Blockly.JavaScript.valueToCode(block, 'coord_x', Blockly.JavaScript.ORDER_NONE);
+  var value_coord_y = Blockly.JavaScript.valueToCode(block, 'coord_y',Blockly.JavaScript.ORDER_NONE);
+  
+  var value_radius_x = Blockly.JavaScript.valueToCode(block, 'radius_x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_radius_y = Blockly.JavaScript.valueToCode(block, 'radius_y', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = 'mousePressed';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  var code = "ellipse("+value_coord_x+","+value_coord_y+","+value_radius_x+","+value_radius_y+");\n";
+  
+  // code = 'console.log("'+ code+'");';
+  return code;
 };
 
-Blockly.JavaScript['cor'] = function(block) {
-  var colour_name = block.getFieldValue('NAME');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '...';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.JavaScript.ORDER_NONE];
-};
+/** EXTRA **/
+
 
 Blockly.JavaScript['random'] = function(block) {
 	var argument0 = Blockly.JavaScript.valueToCode(block, 'FROM',
@@ -153,13 +202,3 @@ Blockly.JavaScript['random'] = function(block) {
 	var code = 'random('+argument0+','+argument1+');';
 	return code;
 }
-
-function getField(block,field){
-	return Blockly.JavaScript.valueToCode(block, field,Blockly.JavaScript.ORDER_COMMA) || '0';
-}
-Blockly.JavaScript['point'] = function(block) {
-	
-	var code = 'point('+getField(block,'coord_x')+','+getField(block,'coord_y')+');';
-	return code;
-}
-

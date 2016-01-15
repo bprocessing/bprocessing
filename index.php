@@ -6,39 +6,39 @@
   <title>Programming processing with blocks</title>
   <link rel="stylesheet" href="style.css">
   <!--<script src="../storage.js"></script>-->
-  <script src="/blockly/blockly_compressed.js"></script>
+  <script src="blockly/blockly_compressed.js"></script>
   
-  <!-- <script src="/blockly/blocks_compressed.js"></script> -->
-  <script src="/blockly/blocks/logic.js"></script>
-<script src="/blockly/blocks/loops.js"></script>
-<script src="/blockly/blocks/math.js"></script>
-<script src="/blockly/blocks/text.js"></script>
-<script src="/blockly/blocks/lists.js"></script>
-<script src="/blockly/blocks/colour.js"></script>
-<script src="/blockly/blocks/variables.js"></script>
-<script src="/blockly/blocks/procedures.js"></script>
-<script src="/blockly/blocks/processing.js"></script>
+  <!-- <script src="blockly/blocks_compressed.js"></script> -->
+  <script src="blockly/blocks/logic.js"></script>
+<script src="blockly/blocks/loops.js"></script>
+<script src="blockly/blocks/math.js"></script>
+<script src="blockly/blocks/text.js"></script>
+<script src="blockly/blocks/lists.js"></script>
+<script src="blockly/blocks/colour.js"></script>
+<script src="blockly/blocks/variables.js"></script>
+<script src="blockly/blocks/procedures.js"></script>
+<script src="blockly/blocks/processing.js"></script>
   
-  <!--<script src="/blockly/javascript_compressed.js"></script>-->
+  <!--<script src="blockly/javascript_compressed.js"></script>-->
   
-  <script src="/blockly/generators/javascript.js"></script>
-<script src="/blockly/generators/javascript/logic.js"></script>
-<script src="/blockly/generators/javascript/loops.js"></script>
-<script src="/blockly/generators/javascript/math.js"></script>
-<script src="/blockly/generators/javascript/text.js"></script>
-<script src="/blockly/generators/javascript/lists.js"></script>
-<script src="/blockly/generators/javascript/colour.js"></script>
-<script src="/blockly/generators/javascript/variables.js"></script>
-<script src="/blockly/generators/javascript/procedures.js"></script>
-<script src="/blockly/generators/javascript/processing.js"></script>
+  <script src="blockly/generators/javascript.js"></script>
+<script src="blockly/generators/javascript/logic.js"></script>
+<script src="blockly/generators/javascript/loops.js"></script>
+<script src="blockly/generators/javascript/math.js"></script>
+<script src="blockly/generators/javascript/text.js"></script>
+<script src="blockly/generators/javascript/lists.js"></script>
+<script src="blockly/generators/javascript/colour.js"></script>
+<script src="blockly/generators/javascript/variables.js"></script>
+<script src="blockly/generators/javascript/procedures.js"></script>
+<script src="blockly/generators/javascript/processing.js"></script>
 
-  <!--<script src="/blockly/python_compressed.js"></script>
-  <script src="/blockly/php_compressed.js"></script>
-  <script src="/blockly/dart_compressed.js"></script>-->
-  <script src="/js/processing.min.js"></script>
-  <script src="/js/processing-helper.js"></script>
-  <script src="/js/jquery-2.2.0.min.js"></script>
-  <script src="/js/jquery-ui.min.js"></script>
+  <!--<script src="blockly/python_compressed.js"></script>
+  <script src="blockly/php_compressed.js"></script>
+  <script src="blockly/dart_compressed.js"></script>-->
+  <script src="js/processing.min.js"></script>
+  <script src="js/processing-helper.js"></script>
+  <script src="js/jquery-2.2.0.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
   
   <script src="code.js"></script>
 </head>
@@ -93,7 +93,7 @@
               </button>
               <a href="https://jsbin.com/bewerahozi/edit?js,output" target="_blank"><img src='https://static.jsbin.com/images/dave.min.svg' class="run icon21" alt="jsbin" title="jsbin"></a>
               <a href="http://rapidtables.com/web/color/RGB_Color.htm" target="_blank"><img src='https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg' class="run icon21"  alt="rgb" title="rgb"></a>
-              
+               <a href="http://processingjs.org/reference/" target="_blank"><img src='https://pbs.twimg.com/profile_images/262520472/pjs_400x400.jpg' class="run icon21"  alt="rgb" title="rgb"></a>
             </td>
           </tr>
           
@@ -492,16 +492,64 @@
       	</value>
       </block>
       <block type="stroke">
-      		
+      		<value name="r">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+		<value name="g">
+          <shadow type="math_number">
+            <field name="NUM">255</field>
+          </shadow>
+        </value>
+		<value name="b">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
       </block>
-      <block type="background"></block>
-      <block type="fill"></block>
-      <block type="cor"></block>
+      <block type="background">
+		 <value name="r">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+		<value name="g">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+		<value name="b">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+	  </block>
+      <block type="fill">
+		<value name="r">
+          <shadow type="math_number">
+            <field name="NUM">255</field>
+          </shadow>
+        </value>
+		<value name="g">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+		<value name="b">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+	  </block>
+      
     </category>
-    <category name="Mouse" colour="-1">
+    <category name="Mouse and keyboard" colour="-1">
     	<block type="mouseX"></block>
     	<block type="mouseY"></block>
     	<block type="mousePressed"></block>
+    	<block type="key"></block>
+    	<block type="keyPressed"></block>
     </category>
     <category name="Figuras" colour="-1">
 	  <block type="point"></block>
