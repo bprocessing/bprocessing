@@ -5,6 +5,7 @@
   <meta name="google" value="notranslate">
   <title>Programming processing with blocks</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="genericos.css">
   <!--<script src="../storage.js"></script>-->
   <script src="blockly/blockly_compressed.js"></script>
   
@@ -43,8 +44,9 @@
   <script src="code.js"></script>
 </head>
 <body>
-<div id="processing_iframe">
-<div id="sketch-container" class="draggable">
+<div id="processing_iframe" class="draggable">
+	<span class="dragger">hold me here</span>
+<div id="sketch-container">
       <canvas id="sketch"></canvas>
       <textarea rows="20" cols="80" id="code" style="display:none;"></textarea>
     </div>
@@ -80,17 +82,19 @@
             <td class="tabmin">&nbsp;</td>
             <td id="tab_dart" class="taboff">Dart</td>
             <td class="tabmin">&nbsp;</td>
-            <td id="tab_xml" class="taboff">XML</td>
+            <?php /*<td id="tab_xml" class="taboff">XML</td> */ ?>
             <td class="tabmax">
-              <button id="trashButton" class="notext" title="..." style="display:none;">
-                <img src='/blockly/media/1x1.gif' class="trash icon21">
+              <button id="trashButton" class="genericon genericon-trash" title="...">
               </button>
               <button id="linkButton" class="notext" title="..." style="display:none;">
                 <img src='/blockly/media/1x1.gif' class="link icon21">
               </button>
-              <button id="runButton" class="notext primary" title="...">
-                <img src='/blockly/media/1x1.gif' class="run icon21" >
-              </button>
+              <button id="undoButton" class="genericon genericon-previous" title="genericon-play"></button>
+              <button id="redoButton" alt="redo" class="genericon genericon-next" title="genericon-play"></button>
+              <button id="showXML" class="genericon genericon-code" title="show"></button>
+              <button id="stopButton" class="genericon genericon-hide" title="hide"></button>
+              <button id="runButton" class="genericon genericon-show" title="show"></button>
+              
               <a href="https://jsbin.com/bewerahozi/edit?js,output" target="_blank"><img src='https://static.jsbin.com/images/dave.min.svg' class="run icon21" alt="jsbin" title="jsbin"></a>
               <a href="http://rapidtables.com/web/color/RGB_Color.htm" target="_blank"><img src='https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg' class="run icon21"  alt="rgb" title="rgb"></a>
                <a href="http://processingjs.org/reference/" target="_blank"><img src='https://pbs.twimg.com/profile_images/262520472/pjs_400x400.jpg' class="run icon21"  alt="rgb" title="rgb"></a>

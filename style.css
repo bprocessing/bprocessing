@@ -161,6 +161,11 @@ button {
 .run {
   background-position: -42px 0px;
 }
+.pause {
+  background-image: url(pause.png);
+  height: 21px;
+  width: 21px;
+}
 #processing_iframe {
     position: absolute;
     top: 0;
@@ -169,6 +174,17 @@ button {
     right: 0;
     margin-right: 80px;
 }
-#tab_python,#tab_php,#tab_dart,#tab_xml{
+#tab_python,#tab_php,#tab_dart{
 	display:none;
+}
+#processing_iframe{
+	
+}
+.dragger{
+	cursor:grab;
+	color:#ddd;
+	background-color:#ddd;
+}
+.dragger{
+	cursor:grabbing;
 }
