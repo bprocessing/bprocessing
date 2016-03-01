@@ -199,20 +199,48 @@ Blockly.Blocks['variables_asign'] = {
 
 Blockly.Blocks['variables_decl_boolean'] = {
   init: function() {
-    this.appendValueInput("VALUE")
-        .appendField("boolean").appendField(new Blockly.FieldVariable("item"), "VAR");
+    /*this.appendValueInput("VALUE")
+        .appendField("boolean")
+        .appendField(new Blockly.FieldVariable("item"), "VAR")
+        .appendField(" = ");*/
+   this.appendValueInput("VALUE")
+        .appendField("boolean")
+        .appendField(new Blockly.FieldVariable("item"), "VAR")
+        .appendField("=");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(0);
     this.setTooltip('');
     this.setHelpUrl('http://www.example.com/');
-  }
+  }/*
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.VARIABLES_SET,
+      "args0": [
+      	  {
+          "type": "field_variable",
+          "name": "VAR",
+          "variable": Blockly.Msg.VARIABLES_DEFAULT_NAME
+        },
+        {
+          "type": "input_value",
+          "name": "VALUE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 0,
+      "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
+      "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL
+    });
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+  },*/
 };
 
 Blockly.Blocks['variables_decl_int'] = {
   init: function() {
     this.appendValueInput("VALUE")
-        .appendField("integer").appendField(new Blockly.FieldVariable("item"), "VAR");
+        .appendField("integer").appendField(new Blockly.FieldVariable("item"), "VAR").appendField("=");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(160);
@@ -222,9 +250,10 @@ Blockly.Blocks['variables_decl_int'] = {
 };
 
 Blockly.Blocks['variables_decl_float'] = {
+	
   init: function() {
-    this.appendValueInput("VALUE")
-        .appendField("float").appendField(new Blockly.FieldVariable("item"), "VAR");
+     this.appendValueInput("VALUE")
+        .appendField("float").appendField(new Blockly.FieldVariable("item"), "VAR").appendField("=");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(180);
@@ -236,7 +265,7 @@ Blockly.Blocks['variables_decl_float'] = {
 Blockly.Blocks['variables_decl_char'] = {
   init: function() {
     this.appendValueInput("VALUE")
-        .appendField("char").appendField(new Blockly.FieldVariable("item"), "VAR");
+        .appendField("char").appendField(new Blockly.FieldVariable("item"), "VAR").appendField("=");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(30);
@@ -248,7 +277,7 @@ Blockly.Blocks['variables_decl_char'] = {
 Blockly.Blocks['variables_decl_string'] = {
   init: function() {
     this.appendValueInput("VALUE")
-        .appendField("string").appendField(new Blockly.FieldVariable("item"), "VAR");
+        .appendField("string").appendField(new Blockly.FieldVariable("item"), "VAR").appendField("=");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setColour(45);

@@ -1,47 +1,19 @@
+<? session_start();
+
+if(!isset($_GET['n'])) {
+	header('Location: http://'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI].'?n='.uniqid());
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="google" value="notranslate">
+  
   <title>Programming processing with blocks</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="genericos.css">
-  <!--<script src="../storage.js"></script>-->
   <script src="blockly/blockly_compressed.js"></script>
-  
-  <!-- <script src="blockly/blocks_compressed.js"></script> -->
-  <script src="blockly/blocks/logic.js"></script>
-<script src="blockly/blocks/loops.js"></script>
-<script src="blockly/blocks/math.js"></script>
-<script src="blockly/blocks/text.js"></script>
-<script src="blockly/blocks/lists.js"></script>
-<script src="blockly/blocks/colour.js"></script>
-<script src="blockly/blocks/variables.js"></script>
-<script src="blockly/blocks/procedures.js"></script>
-<script src="blockly/blocks/processing.js"></script>
-  
-  <!--<script src="blockly/javascript_compressed.js"></script>-->
-  
-  <script src="blockly/generators/javascript.js"></script>
-<script src="blockly/generators/javascript/logic.js"></script>
-<script src="blockly/generators/javascript/loops.js"></script>
-<script src="blockly/generators/javascript/math.js"></script>
-<script src="blockly/generators/javascript/text.js"></script>
-<script src="blockly/generators/javascript/lists.js"></script>
-<script src="blockly/generators/javascript/colour.js"></script>
-<script src="blockly/generators/javascript/variables.js"></script>
-<script src="blockly/generators/javascript/procedures.js"></script>
-<script src="blockly/generators/javascript/processing.js"></script>
-
-  <!--<script src="blockly/python_compressed.js"></script>
-  <script src="blockly/php_compressed.js"></script>
-  <script src="blockly/dart_compressed.js"></script>-->
-  <script src="js/processing.min.js"></script>
-  <script src="js/processing-helper.js"></script>
-  <script src="js/jquery-2.2.0.min.js"></script>
-  <script src="js/jquery-ui.min.js"></script>
-  
-  <script src="code.js"></script>
 </head>
 <body>
 <div id="processing_iframe" class="draggable">
@@ -83,17 +55,22 @@
             <td id="tab_dart" class="taboff">Dart</td>
             <td class="tabmin">&nbsp;</td>
             <?php /*<td id="tab_xml" class="taboff">XML</td> */ ?>
-            <td class="tabmax">
-              <button id="trashButton" class="genericon genericon-trash" title="...">
-              </button>
+            <td class="tabmax utilities_buttons">
+               <button id="saveButton" class="genericon genericon-edit" title="Save" alt="Save"><span>Save</span></button>
+               
               <button id="linkButton" class="notext" title="..." style="display:none;">
                 <img src='/blockly/media/1x1.gif' class="link icon21">
               </button>
-              <button id="undoButton" class="genericon genericon-previous" title="genericon-play"></button>
-              <button id="redoButton" alt="redo" class="genericon genericon-next" title="genericon-play"></button>
-              <button id="showXML" class="genericon genericon-code" title="show"></button>
-              <button id="stopButton" class="genericon genericon-hide" title="hide"></button>
-              <button id="runButton" class="genericon genericon-show" title="show"></button>
+              <button id="stopButton" class="genericon genericon-hide" title="Hide" alt="Hide"><span>Hide</span></button>
+              <button id="runButton" class="genericon genericon-show" title="Show" alt="Show"><span>Show</span></button>
+              
+              <button id="undoButton" class="genericon genericon-previous" alt="Undo" title="Undo"><span>Undo</span></button>
+              <button id="redoButton" alt="Redo" title="Redo" class="genericon genericon-next" title="genericon-play"><span>Redo</span></button>
+              <span>|</span>
+              <button id="trashButton" class="genericon genericon-trash" title="Clear" alt="Clear"><span>Clear</span>
+              </button>
+              <button id="showXML" class="genericon genericon-code" title="XML" alt="XML"><span>XML</span></button>
+             
               
               <a href="https://jsbin.com/bewerahozi/edit?js,output" target="_blank"><img src='https://static.jsbin.com/images/dave.min.svg' class="run icon21" alt="jsbin" title="jsbin"></a>
               <a href="http://rapidtables.com/web/color/RGB_Color.htm" target="_blank"><img src='https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg' class="run icon21"  alt="rgb" title="rgb"></a>
@@ -122,11 +99,37 @@
   
   <category id="catVariables" colour="60">
   	
-  	<block type="variables_decl_boolean"></block>
-  	<block type="variables_decl_int"></block>
-  	<block type="variables_decl_float"></block>
-  	<block type="variables_decl_char"></block>
-  	<block type="variables_decl_string"></block>
+  	<block type="variables_decl_boolean">
+  	 		<value name="VALUE">
+  	 			<shadow type="logic_boolean" colour="0"></shadow>
+  	 			</value>
+    </block>
+  	<block type="variables_decl_int">
+  			<value name="VALUE">
+  	 			<shadow type="math_number" colour="0">0</shadow>
+  	 			</value>
+  	</block>
+  	<block type="variables_decl_float">
+  		<value name="VALUE">
+  	 			<shadow type="math_number">
+            <field name="NUM">0.0</field>
+          </shadow>
+  	 			</value>
+  	</block>
+  	<block type="variables_decl_char">
+  	<value name="VALUE">
+  		<shadow type="text">
+            <field name="TEXT">a</field>
+          </shadow>	
+  	</value>
+  	</block>
+  	<block type="variables_decl_string">
+  	<value name="VALUE">
+  		<shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>	
+  	</value>
+  	</block>
   	
   	<block type="variables_asign"></block>
   	<block type="variables_get"></block>
@@ -137,7 +140,7 @@
   	
   	<block type="logic_boolean" colour="0"></block>
   	
-  	<block type="logic_null"></block>
+  	<!--<block type="logic_null"></block>-->
   	<!--<block type="variables_decl"></block>-->
   </category>
   
@@ -183,6 +186,8 @@
   <sep></sep>
   
   <category id="catMath" colour="170">
+  	<block type="math_number"></block>
+  	<block type="math_constant"></block>
   	<block type="math_arithmetic">
         <value name="A">
           <shadow type="math_number">
@@ -212,7 +217,7 @@
         </value>
       </block>
       
-      <block type="math_number_property">
+     <!-- <block type="math_number_property">
         <value name="NUMBER_TO_CHECK">
           <shadow type="math_number">
             <field name="NUM">0</field>
@@ -225,7 +230,7 @@
             <field name="NUM">1</field>
           </shadow>
         </value>
-      </block>
+      </block>-->
       <block type="math_round">
         <value name="NUM">
           <shadow type="math_number">
@@ -233,7 +238,7 @@
           </shadow>
         </value>
       </block>
-      <block type="math_on_list"></block>
+      <!--<block type="math_on_list"></block>-->
       <block type="math_modulo">
         <value name="DIVIDEND">
           <shadow type="math_number">
@@ -246,7 +251,7 @@
           </shadow>
         </value>
       </block>
-      <block type="math_constrain">
+      <!--<block type="math_constrain">
         <value name="VALUE">
           <shadow type="math_number">
             <field name="NUM">50</field>
@@ -262,8 +267,20 @@
             <field name="NUM">100</field>
           </shadow>
         </value>
-      </block>
-      <block type="math_random_int">
+      </block>-->
+      <!--<block type="math_random_int">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>-->
+       <block type="p_random">
         <value name="FROM">
           <shadow type="math_number">
             <field name="NUM">1</field>
@@ -275,11 +292,13 @@
           </shadow>
         </value>
       </block>
-      <block type="math_random_float"></block>
+      <!--<block type="math_random_float"></block>-->
   </category>
   
   <category id="catLogic" colour="0">
-  	  
+  	  <block type="logic_boolean" colour="0"></block>
+  	
+  	  <!--<block type="logic_null"></block>-->
   	  <block type="logic_compare" colour="0"></block>
       <block type="logic_operation" colour="0"></block>
       
@@ -456,9 +475,11 @@
           </shadow>
         </value>
       </block>
-    </category>-->
-    <sep></sep>
+    </category>
+    <sep></sep>-->
     <category name="Processing" colour="-1">
+    	<block type="width"></block>
+    	<block type="height"></block>
       <block type="processing">
       	<value name="SETUP">
       		<block type="size">
@@ -546,7 +567,9 @@
           </shadow>
         </value>
 	  </block>
-      
+	  <block type="ps_text"></block>
+	  <block type="ps_image_decl"></block>
+	  <block type="ps_image"></block>
     </category>
     <category name="Mouse and keyboard" colour="-1">
     	<block type="mouseX"></block>
@@ -556,53 +579,300 @@
     	<block type="keyPressed"></block>
     </category>
     <category name="Figuras" colour="-1">
-	  <block type="point"></block>
-      <block type="line"></block>
-	  <block type="arc"></block>
+	  <block type="point">
+	  <value name="coord_x">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+		<value name="coord_y">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+	  </block>
+      <block type="line">
+      <value name="x1">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+		<value name="y1">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+        <value name="x2">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+        <value name="y2">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+	  <block type="arc">
+	  
+	  
+	  
+	  <value name="x">
+                          <shadow type="math_number">
+                            <field name="NUM">50</field>
+                          </shadow>
+                        </value>
+                        <value name="y">
+                          <shadow type="math_number">
+                            <field name="NUM">55</field>
+                          </shadow>
+                        </value>
+                        <value name="width">
+                          <shadow type="math_number">
+                            <field name="NUM">50</field>
+                          </shadow>
+                        </value>
+                        <value name="height">
+                          <shadow type="math_number">
+                            <field name="NUM">50</field>
+                          </shadow>
+                        </value>
+                        <value name="start">
+                          <shadow type="math_number">
+                            <field name="NUM">0</field>
+                          </shadow>
+                        </value>
+                        <value name="stop">
+                          <shadow type="math_arithmetic">
+                            <field name="OP">DIVIDE</field>
+                            <value name="A">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <shadow type="math_constant">
+                                <field name="CONSTANT">PI</field>
+                              </shadow>
+                            </value>
+                            <value name="B">
+                              <shadow type="math_number">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <shadow type="math_number">
+                                <field name="NUM">2</field>
+                              </shadow>
+                            </value>
+                          </shadow>
+                        </value>
+	  
+	  
+	  
+	  </block>
       
-      <block type="rect"></block>
-	  <block type="triangle"></block>
-	  <block type="quad"></block>
-	  <block type="ellipse"></block>
+      <block type="rect">
+      						<value name="coord_x">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="coord_y">
+                              <shadow type="math_number">
+                                <field name="NUM">55</field>
+                              </shadow>
+                            </value>
+                            <value name="radius_x">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="radius_y">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+      
+      </block>
+	  <block type="triangle">
+	  
+	  	<value name="x1">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="y1">
+                              <shadow type="math_number">
+                                <field name="NUM">55</field>
+                              </shadow>
+                            </value>
+                            <value name="x2">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="y2">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            
+                            <value name="x3">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="y3">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+	  </block>
+	  <block type="quad">
+	  
+	  <value name="x1">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="y1">
+                              <shadow type="math_number">
+                                <field name="NUM">55</field>
+                              </shadow>
+                            </value>
+                            <value name="x2">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="y2">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            
+                            <value name="x3">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="y3">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="x4">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="y4">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+	  </block>
+	  <block type="ellipse">
+	  
+	  <value name="coord_x">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="coord_y">
+                              <shadow type="math_number">
+                                <field name="NUM">55</field>
+                              </shadow>
+                            </value>
+                            <value name="radius_x">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+                            <value name="radius_y">
+                              <shadow type="math_number">
+                                <field name="NUM">50</field>
+                              </shadow>
+                            </value>
+	  </block>
 	   
     </category>
     
-    
+    <category expanded="true" name="Exemplos">
+    	<category name="Rato">
+    		<?php include('examples/mouse.inc');?>
+    	</category>
+      <category name="Rato (Mira)">
+      <?php include('examples/mouse_target.inc');?>
+      </category>
+      
+      <category name="Teclado">
+      <?php include('examples/keyboard.inc');?>
+      </category>
+      <category name="Inteiro (contador)">
+      <?php include('examples/counter.inc');?>
+      </category>
+      <category name="Imagem">
+    	<?php include('examples/images.inc');?>
+    	</category>
+    </category>
+    <category expanded="true" name="Exercicios">
+    	<category name="Linha a rodar">
+    	<?php include('examples/following.inc');?>
+    	</category>
+    	<category name="Luzes">
+    	<?php include('examples/luzes.inc');?>
+    	</category>
+    	<category name="Igni&ccedil;&atilde;o de carro">
+    	<?php include('examples/car_start.inc');?>
+    	</category>
+    	
+    </category>
   </xml>
 
 
 <?php
-if(isset($_GET['n']) ){
-	$n = $_GET['n'];
-	$is_active = isset($_GET['inactive']);
 	
-	if(is_numeric($n) && $is_active){
-		include("$n.inc");
-	}else{
-		include("0.inc");
-	}
-	
-}else{
 	include("0.inc");
-}
+
 ?>
-<script>
-$(document).ready(function(){
-<?php
-if(isset($_GET['xml'])){
-	?>
-		$('#tab_xml').show();
-		
-		
-		
-	<?php 
-}?>
+<input type="hidden" id="guid" value="<?php echo stripslashes($_GET['n'])?>">
 
-});
-
-</script>
-
-  
 
 </body>
+<!--<script src="../storage.js"></script>-->
+  
+  
+  
+  <!-- <script src="blockly/blocks_compressed.js"></script> -->
+  <script src="blockly/blocks/logic.js"></script>
+<script src="blockly/blocks/loops.js"></script>
+<script src="blockly/blocks/math.js"></script>
+<script src="blockly/blocks/text.js"></script>
+<script src="blockly/blocks/lists.js"></script>
+<script src="blockly/blocks/colour.js"></script>
+<script src="blockly/blocks/variables.js"></script>
+<script src="blockly/blocks/procedures.js"></script>
+<script src="blockly/blocks/processing.js"></script>
+  
+  <!--<script src="blockly/javascript_compressed.js"></script>-->
+  
+  <script src="blockly/generators/javascript.js"></script>
+<script src="blockly/generators/javascript/logic.js"></script>
+<script src="blockly/generators/javascript/loops.js"></script>
+<script src="blockly/generators/javascript/math.js"></script>
+<script src="blockly/generators/javascript/text.js"></script>
+<script src="blockly/generators/javascript/lists.js"></script>
+<script src="blockly/generators/javascript/colour.js"></script>
+<script src="blockly/generators/javascript/variables.js"></script>
+<script src="blockly/generators/javascript/procedures.js"></script>
+<script src="blockly/generators/javascript/processing.js"></script>
+
+  <!--<script src="blockly/python_compressed.js"></script>
+  <script src="blockly/php_compressed.js"></script>
+  <script src="blockly/dart_compressed.js"></script>-->
+  <script src="js/processing.min.js"></script>
+  <script src="js/processing-helper.js"></script>
+  <script src="js/jquery-2.2.0.min.js"></script>
+  <script src="js/jquery-ui.min.js"></script>
+  
+  <script src="code.js"></script>
+<!--<script src="js/analytics.js"></script>-->
 </html>

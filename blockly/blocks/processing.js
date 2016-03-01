@@ -13,7 +13,7 @@ Blockly.Blocks['processing'] = {
     this.appendStatementInput("DRAW")
         .appendField("draw");
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/draw_');
     this.setPreviousStatement(false);
   }
  };
@@ -32,7 +32,7 @@ Blockly.Blocks['processing'] = {
     this.setTooltip('');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/size_');
   }
 };
 Blockly.Blocks['background'] = {
@@ -52,7 +52,7 @@ Blockly.Blocks['background'] = {
     this.setTooltip('');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/background_');
   }
 };
 
@@ -73,7 +73,7 @@ Blockly.Blocks['fill'] = {
     this.setTooltip('');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/fill_');
      
   }
 };
@@ -95,7 +95,7 @@ Blockly.Blocks['stroke'] = {
     this.setTooltip('');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/stroke_');
   }
 };
 Blockly.Blocks['strokeWeight'] = {
@@ -108,7 +108,7 @@ Blockly.Blocks['strokeWeight'] = {
     this.setTooltip('');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/strokeWeight_');
   }
 };
 /** MOUSE **/ 
@@ -118,7 +118,7 @@ Blockly.Blocks['mouseX'] = {
         .appendField("mouseX");
     this.setOutput(true);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/mouseX');
     this.setColour(170);
   }
 };
@@ -129,7 +129,7 @@ Blockly.Blocks['mouseY'] = {
         .appendField("mouseY");
     this.setOutput(true);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/mouseY');
     this.setColour(170);
   }
 };
@@ -140,7 +140,7 @@ Blockly.Blocks['mousePressed'] = {
         .appendField("mousePressed");
     this.setOutput(true);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/mousePressed');
     this.setColour(0);
   }
 };
@@ -153,7 +153,7 @@ Blockly.Blocks['key'] = {
         .appendField("key");
     this.setOutput(true);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/key');
     this.setColour(30);
   }
 };
@@ -164,7 +164,7 @@ Blockly.Blocks['keyPressed'] = {
         .appendField("keyPressed");
     this.setOutput(true);
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/keyPressed');
     this.setColour(0);
   }
 };
@@ -185,7 +185,7 @@ Blockly.Blocks['rect'] = {
     this.setInputsInline(true);
     
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/rect_');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
@@ -205,7 +205,7 @@ Blockly.Blocks['rect'] = {
     this.setInputsInline(true);
     
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/point_');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
@@ -228,7 +228,7 @@ Blockly.Blocks['rect'] = {
     this.setInputsInline(true);
     
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/line_');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
@@ -254,7 +254,7 @@ Blockly.Blocks['rect'] = {
     this.setInputsInline(true);
     
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/arc_');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
@@ -280,7 +280,7 @@ Blockly.Blocks['rect'] = {
     this.setInputsInline(true);
     
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/triangle_');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
@@ -310,7 +310,7 @@ Blockly.Blocks['rect'] = {
     this.setInputsInline(true);
     
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/quad_');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
@@ -332,7 +332,7 @@ Blockly.Blocks['ellipse'] = {
     this.setInputsInline(true);
     
     this.setTooltip('');
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('http://processingjs.org/reference/ellipse_');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
@@ -341,7 +341,7 @@ Blockly.Blocks['ellipse'] = {
 
  
 /**  EXTRA **/
-Blockly.Blocks['random'] = {
+Blockly.Blocks['p_random'] = {
   /**
    * Block for random integer between [X] and [Y].
    * @this Blockly.Block
@@ -369,3 +369,120 @@ Blockly.Blocks['random'] = {
     });
   }
 };
+
+Blockly.Blocks['width'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("width");
+    this.setOutput(true);
+    this.setTooltip('');
+    this.setHelpUrl('http://processingjs.org/reference/width');
+    this.setColour(170);
+  }
+};
+
+Blockly.Blocks['height'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("height");
+    this.setOutput(true);
+    this.setTooltip('');
+    this.setHelpUrl('http://processingjs.org/reference/height');
+    this.setColour(170);
+  }
+};
+
+Blockly.Blocks['print'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .appendField("print");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.setHelpUrl('http://processingjs.org/reference/print_');
+  }
+};
+
+Blockly.Blocks['println'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .appendField("println");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.setHelpUrl('http://processingjs.org/reference/println_');
+  }
+};
+
+Blockly.Blocks['ps_text'] = {
+  init: function() {
+    this.appendValueInput("text")
+        .appendField("text");
+    this.appendValueInput("x")
+        .appendField("x");
+    this.appendValueInput("y")
+        .appendField("y");
+    
+    
+    this.setInputsInline(true);
+    
+    this.setTooltip('');
+    this.setHelpUrl('http://processingjs.org/reference/text_');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setInputsInline(true);
+  }
+ };
+ /*
+ Blockly.Blocks['ps_concat'] = {
+  init: function() {
+    this.appendValueInput("text")
+        .appendField("text");
+    this.appendValueInput("x")
+        .appendField("x");
+    this.appendValueInput("y")
+        .appendField("y");
+    
+    
+    this.setInputsInline(true);
+    
+    this.setTooltip('');
+    this.setHelpUrl('http://processingjs.org/reference/text_');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setInputsInline(true);
+  }*/
+  
+  Blockly.Blocks['ps_image_decl'] = {
+  init: function() {
+    this.appendValueInput("VALUE")
+        .setCheck("String")
+        .appendField("image")
+        .appendField(new Blockly.FieldVariable("item"), "VAR");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+    this.setHelpUrl('http://processingjs.org/reference/PImage');
+  }
+  };
+  
+  Blockly.Blocks['ps_image'] = {
+  init: function() {
+    this.appendValueInput("image_url")
+        .appendField("image");
+    this.appendValueInput("x")
+        .appendField("x");
+    this.appendValueInput("y")
+        .appendField("y");
+    
+    
+    this.setInputsInline(true);
+    
+    this.setTooltip('');
+    this.setHelpUrl('http://processingjs.org/reference/image_');
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setInputsInline(true);
+  }
+  };

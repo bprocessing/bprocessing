@@ -193,12 +193,75 @@ Blockly.JavaScript['ellipse'] = function(block) {
 /** EXTRA **/
 
 
-Blockly.JavaScript['random'] = function(block) {
+Blockly.JavaScript['p_random'] = function(block) {
 	var argument0 = Blockly.JavaScript.valueToCode(block, 'FROM',
 		Blockly.JavaScript.ORDER_COMMA) || '0';
 	var argument1 = Blockly.JavaScript.valueToCode(block, 'TO',
 		Blockly.JavaScript.ORDER_COMMA) || '0';
 	
-	var code = 'random('+argument0+','+argument1+');';
-	return code;
+	var code = 'random('+argument0+','+argument1+')';
+	//return code;
+	return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL]
 }
+
+
+Blockly.JavaScript['width'] = function(block) {
+  var code = "width";
+  
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+Blockly.JavaScript['height'] = function(block) {
+  var code = "height";
+  
+  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+};
+
+Blockly.JavaScript['print'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'print('+value_name+');';
+  return code;
+};
+
+Blockly.JavaScript['println'] = function(block) {
+  var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'println('+value_name+');';
+  return code;
+};
+
+Blockly.JavaScript['ps_text'] = function(block) {
+  var x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_NONE);
+  var y = Blockly.JavaScript.valueToCode(block, 'y',Blockly.JavaScript.ORDER_NONE);
+  
+  var text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // TODO: Assemble JavaScript into code variable.
+  var code = "text("+text+","+x+","+y+");\n";
+  
+  // code = 'console.log("'+ code+'");';
+  return code;
+};
+
+Blockly.JavaScript['ps_image_decl'] = function(block) {
+  var variable_var = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = "PImage "+variable_var+" = loadImage("+value_value+");\n";
+  // PImage a;  // Declare variable "a" of type PImage
+// a = loadImage("arch.jpg"); // Load the images into the program
+  // code = 'console.log("'+ code+'");';
+  return code;
+};
+Blockly.JavaScript['ps_image'] = function(block) {
+ var x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_NONE);
+  var y = Blockly.JavaScript.valueToCode(block, 'y',Blockly.JavaScript.ORDER_NONE);
+  
+  var text = Blockly.JavaScript.valueToCode(block, 'image_url', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  // TODO: Assemble JavaScript into code variable.
+  var code = "image("+text+","+x+","+y+");\n";
+  
+  // code = 'console.log("'+ code+'");';
+  return code;
+};

@@ -263,12 +263,12 @@ Code.tabClick = function(clickedName) {
   	  //  document.getElementById('tab_xml').className == 'tabon')) {
     // var xmlTextarea = document.getElementById('content_xml');
     // var xmlText = xmlTextarea.value;
-    var xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
-    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    // var xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
+    // var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     var xmlDom = null;
     
     try {
-      xmlDom = Blockly.Xml.textToDom(xmlText);
+      // xmlDom = Blockly.Xml.textToDom(xmlText);
     } catch (e) {
       var q =
           window.confirm(MSG['badXml'].replace('%1', e));
@@ -311,27 +311,31 @@ Code.tabClick = function(clickedName) {
   }
   Blockly.fireUiEvent(window, 'resize');
   
-  var xmlTextarea = document.getElementById('content_xml');
+  Code.generateXML();
+  // Code.workspace.setVisible(false);
+};
+
+Code.generateXML = function(){
+	 var xmlTextarea = document.getElementById('content_xml');
   var xmlText = xmlTextarea.value;
   var xmlDom = null;
   
   try {
   	  xmlDom = Blockly.Xml.textToDom(xmlText);
   } catch (e) {
-  	  //var q =
-  	  //window.confirm(MSG['badXml'].replace('%1', e));
+  	  // var q =
+  	  // window.confirm(MSG['badXml'].replace('%1', e));
 	  console.log(MSG['badXml'].replace('%1', e));
-  	  if (!q) {
+  	  // if (!q) {
   	  	  // Leave the user on the XML tab.
-  	  	  return;
-  	  }
+  	  	  // return;
+  	  // }
   }
   if (xmlDom) {
   	  Code.workspace.clear();
   	  Blockly.Xml.domToWorkspace(Code.workspace, xmlDom);
   }
-  // Code.workspace.setVisible(false);
-};
+}
 
 /**
  * Populate the currently selected pane with content generated from the blocks.
@@ -380,12 +384,27 @@ Code.renderContent = function() {
       content.innerHTML = code;
     }
   }
+  
+  
 };
 Code.cleanup = function(){
 	Code.discard();
 	localStorage.setItem("source_code","");
 	localStorage.setItem("code_stack","");
 	localStorage.setItem("code_redo_stack","");
+	Code.workspace = Blockly.inject('content_blocks',
+      {grid:
+          {spacing: 25,
+           length: 3,
+           colour: '#ccc',
+           snap: true},
+       media: 'blockly/media/',
+       rtl: rtl,
+       toolbox: toolbox,
+       zoom:
+           {controls: true,
+            wheel: true}
+      });
 	Code.renderContent();
 }
 /**
@@ -440,7 +459,7 @@ Code.init = function() {
   Blockly.JavaScript.addReservedWords('code,timeouts,checkTimeout');
 
   Code.loadBlocks('');
-
+   Code.generateXML();
   if ('BlocklyStorage' in window) {
     // Hook a save function onto unload.
     BlocklyStorage.backupOnUnload(Code.workspace);
@@ -455,6 +474,7 @@ Code.init = function() {
   Code.bindClick('undoButton', Code.undo);
   Code.bindClick('redoButton', Code.redo);
   Code.bindClick('trashButton', Code.cleanup);
+  Code.bindClick('saveButton', Code.save);
   
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
@@ -480,19 +500,41 @@ Code.init = function() {
   Code.workspace.addChangeListener(Code.runJS);
   
   // Blockly.Xml.domToWorkspace(Code.workspace,document.getElementById('startBlocks'));
+  var jqxhr = $.get( "processing.php",
+  	  {guid : $("#guid").val(), action : 'get'})
+  	  .done(function(data){
+  		  if(data.length < 1){
+  		  	  
+  		  	  Code.loadStorage();
+  		  	  return;
+  		  }
+  		  code = data;
+  		  
+  		  try{
+  		  	  Code.loadCode(code);
+  		  }catch(err){
+  		  	  console.log('faileddd..');
+  		  	  Code.loadStorage();
+  		  }
+  	  }).fail(function() {
+  	  	  Code.loadStorage();
+  	  });
   
-  if (typeof(Storage) !== "undefined"){
-  	  var source_code_raw = localStorage.getItem("source_code");
-  	  // var source_code = JSON.parse(source_code_raw);
-  	  // var last_code = source_code.pop();
-  	  var last_code = source_code_raw;
-  	  // console.log('--------');
-  	  // console.log(last_code);
-  	  // console.log('--------');
-  	  
-  	  try{
+  
+  // Code.loadStorage();
+  // Lazy-load the syntax-highlighting.
+  window.setTimeout(Code.importPrettify, 1);
+};
+
+Code.loadCode = function(XMLcode){
+	console.log("Loading code...");
+	console.log(code);
+	try{
+		  Code.workspace.clear();
   	  	  // Code.loadBlocks(last_code);
-  	  	  var xml = Blockly.Xml.textToDom(last_code);
+  	  	  // XMLcode = XMLcode.replace('<xml xmlns="http://www.w3.org/1999/xhtml">','');
+  	  	  // XMLcode = XMLcode.replace('</xml>','');
+  	  	  var xml = Blockly.Xml.textToDom(XMLcode);
   	  	  Blockly.Xml.domToWorkspace(Code.workspace, xml);
   	  	  // Blockly.Xml.domToWorkspace(Code.workspace,);
   	  	  // console.log('ok...');
@@ -502,13 +544,25 @@ Code.init = function() {
   	  	  console.log(err);
   	  	  // console.log('fail...');
   	  	  Blockly.Xml.domToWorkspace(Code.workspace,document.getElementById('startBlocks'));
+  	  	  throw "failed to load...!";
   	  }
+}
+Code.loadStorage = function(){
+	// return;
+	console.log('loading storage...');
+	if (typeof(Storage) !== "undefined"){
+  	  var source_code_raw = localStorage.getItem("source_code");
+  	  // var source_code = JSON.parse(source_code_raw);
+  	  // var last_code = source_code.pop();
+  	  var last_code = source_code_raw;
+  	  // console.log('--------');
+  	  console.log(last_code);
+  	  // console.log('--------');
+  	  
+  	  
+  	  Code.loadCode(last_code);
   }
-  
-  // Lazy-load the syntax-highlighting.
-  window.setTimeout(Code.importPrettify, 1);
-};
-
+}
 /**
  * Initialize the page language.
  */
@@ -584,6 +638,7 @@ Code.initLanguage = function() {
  * Just a quick and dirty eval.  Catch infinite loops.
  */
  Code.runProcessing = function() {
+ 	 console.log('runProcessing()');
  	 $("#processing_iframe").show();
  	 showSketch();
  	 Code.runJS();
@@ -596,7 +651,7 @@ Code.initLanguage = function() {
  	 throw MSG['timeout'];
  	 }
  	 };*/
- 	 
+ 	 console.log('runJs()');
  	 var code = Blockly.JavaScript.workspaceToCode(Code.workspace);
  	 Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
  	 // try {
@@ -729,6 +784,30 @@ Code.initLanguage = function() {
  	 $("#stopButton").hide();
  	 stopSketch();
  }
+ 
+ Code.save = function(){
+ 	 // $.post( "processing.php", { 'id': $("#sketch_id").val(), 'code': Code.workspace } );
+ 	 // console.log('buuu');
+ 	 // var code_serialized = Code.workspace;
+ 	 // var code_serialized = JSON.stringify(Code.workspace);
+ 	 // var xmlTextarea = $("#content_xml").val();
+ 	  console.log('saving code...');
+ 	 $("#saveButton span").html('Saving...');
+ 	  var xmlDom = Blockly.Xml.workspaceToDom(Code.workspace);
+ 	  var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+ 	  
+ 	 // console.log(xmlTextarea);
+ 	 xmlText = encodeURIComponent(xmlText);
+ 	 // console.log('fuuu');
+ 	 // console.log(xmlTextarea);
+ 	 if(xmlText.length < 1){
+ 	 	 console.log('YUPPPP');
+ 	 	 return;
+ 	 }
+ 	 $.post( "processing.php", { guid: $("#guid").val(), code: xmlText } ).done(function(){
+ 	 		 $("#saveButton span").html('Saved');
+ 	 });
+ }
  // Code.xmlUpdate = function(){
  // 	 var xmlTextarea = document.getElementById('content_xml');
  // 	 var xmlText = xmlTextarea.value;
@@ -757,9 +836,10 @@ document.write('<script src="msg/' + Code.LANG + '.js"></script>\n');
 // Load Blockly's language strings.
 document.write('<script src="msg/js/' + Code.LANG + '.js"></script>\n');
 
-window.addEventListener('load', Code.init);
+
 
 $(document).ready(function(){
+		window.addEventListener('load', Code.init);
 		var title_translated = MSG[$("#exercise_name").val()];
 		
 		if (typeof(title_translated) != 'undefined' && title_translated != null){
@@ -776,5 +856,6 @@ $(document).ready(function(){
 				// $( "#draggable2" ).draggable({ cancel: "p.ui-widget-header" });
 				// $( "div, p" ).disableSelection();
 		});
+		
 		
 });

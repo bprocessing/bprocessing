@@ -389,7 +389,7 @@ Blockly.JavaScript['math_random_int'] = function(block) {
       Blockly.JavaScript.ORDER_COMMA) || '0';
   var argument1 = Blockly.JavaScript.valueToCode(block, 'TO',
       Blockly.JavaScript.ORDER_COMMA) || '0';
-  var functionName = Blockly.JavaScript.provideFunction_(
+  /*var functionName = Blockly.JavaScript.provideFunction_(
       'math_random_int',
       [ 'function ' + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ +
           '(a, b) {',
@@ -402,10 +402,17 @@ Blockly.JavaScript['math_random_int'] = function(block) {
         '  return Math.floor(Math.random() * (b - a + 1) + a);',
         '}']);
   var code = functionName + '(' + argument0 + ', ' + argument1 + ')';
-  return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  */
+  
+  // return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  var code;
+  code = "int(random("+argument0+","+argument1+"))";
+  return code;
 };
 
 Blockly.JavaScript['math_random_float'] = function(block) {
+	code = "random("+argument0+","+argument1+")";
+	return code;
   // Random fraction between 0 and 1.
-  return ['Math.random()', Blockly.JavaScript.ORDER_FUNCTION_CALL];
+  // return ['Math.random()', Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };

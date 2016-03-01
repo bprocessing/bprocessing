@@ -96,9 +96,9 @@ Blockly.JavaScript['variables_decl_int'] = function(block) {
   var value_name = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
   
   code = code + 'int '+ variable_var;
-  if(value_name.length > 1){
+  // if(value_name.length > 1){
   	  code = code + ' = ' + value_name;
-  }
+  // }
   code = code + ";\n";
   
   return code;
@@ -106,14 +106,14 @@ Blockly.JavaScript['variables_decl_int'] = function(block) {
 
 Blockly.JavaScript['variables_decl_float'] = function(block) {
   
-   var code = "";
+  var code = "";
   var variable_var = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var value_name = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
   
   code = code + 'float '+ variable_var;
-  if(value_name.length > 1){
+  // if(value_name.length > 1){
   	  code = code + ' = ' + value_name;
-  }
+  // }
   code = code + ";\n";
   
   return code;
