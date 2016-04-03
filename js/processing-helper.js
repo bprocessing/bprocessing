@@ -4,7 +4,8 @@
     code = document.getElementById('code'),
     output = document.getElementById('output'),
     instance = null;
-
+  var hidden = false;
+  
   function createCanvas() {
     // Make a new canvas, in case we're switching from 2D to 3D contexts.
     var container = document.getElementById('sketch-container');
@@ -25,8 +26,13 @@
     }
     return checkbox.checked || checkbox.value;
   }
-
+  
+  global.showSketch = function(code) {
+  	  hidden = false;
+  }
   global.runSketch = function(code) {
+  	  if(hidden)
+  	  	  return;
     try {
       // output.value = '';
       canvas = createCanvas();
@@ -46,6 +52,28 @@
     }
   };
 
+  global.stopSketch = function(code) {
+    try {
+      // output.value = '';
+      hidden = true;
+      canvas.style.display = 'none';
+      // canvas = createCanvas();
+      // var sketch = Processing.compile(code);
+      // instance = new Processing(canvas, sketch);
+      /*if (callback) {
+        if (!/exit\(\);/.test(code.value)) {
+          throw "exit() not found in sketch. Add the exit() command, and re-run the sketch.";
+        }
+        sketch.onExit = callback;
+        instance = new Processing(canvas, sketch);
+      } else {
+        instance = new Processing(canvas, sketch);
+      }*/
+    } catch (e) {
+      console.log("Error! Error was:\n" + e.toString());
+    }
+  };
+  
   global.convertToJS = function() {
     try {
       output.value = js_beautify(Processing.compile(code.value).sourceCode).replace(/\n\n\n+/g, '\n\n');

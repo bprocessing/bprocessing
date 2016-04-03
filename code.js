@@ -413,7 +413,7 @@ Code.cleanup = function(){
 Code.init = function() {
 	
   Code.initLanguage();
-
+  var code ; 
   var rtl = Code.isRtl();
   var container = document.getElementById('content_area');
   var onresize = function(e) {
@@ -470,11 +470,16 @@ Code.init = function() {
   // Code.bindClick('trashButton',function() {Code.discard(); Code.renderContent();});
   Code.bindClick('runButton', Code.runProcessing);
   Code.bindClick('stopButton', Code.stopProcessing);
+  Code.bindClick('fullscreenButton', Code.fullScreen);
   Code.bindClick('showXML',function(){Code.tabClick("xml");});
+  Code.bindClick('showCode',function(){Code.tabClick("javascript");});
   Code.bindClick('undoButton', Code.undo);
   Code.bindClick('redoButton', Code.redo);
   Code.bindClick('trashButton', Code.cleanup);
   Code.bindClick('saveButton', Code.save);
+  
+  Code.bindClick('lockButton', Code.lock);
+  Code.bindClick('unlockButton', Code.unlock);
   
   // Disable the link button if page isn't backed by App Engine storage.
   var linkButton = document.getElementById('linkButton');
@@ -496,8 +501,8 @@ Code.init = function() {
   }
 
   
-  Code.workspace.addChangeListener(Code.store);
-  Code.workspace.addChangeListener(Code.runJS);
+  // Code.workspace.addChangeListener(Code.store);
+  // Code.workspace.addChangeListener(Code.runJS);
   
   // Blockly.Xml.domToWorkspace(Code.workspace,document.getElementById('startBlocks'));
   var jqxhr = $.get( "processing.php",
@@ -519,10 +524,29 @@ Code.init = function() {
   	  }).fail(function() {
   	  	  Code.loadStorage();
   	  });
-  
+                                              
+  	  var jqxhr = $.get( "processing.php",
+  	  	  {guid : $("#guid").val(), action : 'locked'})
+  	  .done(function(data){
+  	  		  if(data=="TRUE"){
+  	  		  	  $("#saveButton").hide();
+  	  		  	  $("#lockButton").hide();
+  	  		  	  $("#unlockButton").show();
+  	  		  	  $("#passwd").val("");
+  	  		  }
+  	  		  if(data=="FALSE"){
+  	  		  	 $("#saveButton").show();
+ 	 		 	 $("#lockButton").show();
+ 	 		 	 $("#unlockButton").hide();
+ 	 		 	 $("#passwd").val();
+  	  		  }
+  	  }).fail(function() {
+  	  	  Code.loadStorage();
+  	  });
   
   // Code.loadStorage();
   // Lazy-load the syntax-highlighting.
+  Code.stopProcessing();
   window.setTimeout(Code.importPrettify, 1);
 };
 
@@ -662,8 +686,8 @@ Code.initLanguage = function() {
  	 // } catch (e) {
  	 	 //alert(MSG['badCode'].replace('%1', e));
  	 // }
- 	 $("#runButton").hide();
- 	 $("#stopButton").show();
+ 	 // $("#runButton").hide();
+ 	 // $("#stopButton").show();
  };
 
  Code.undo = function(){
@@ -780,8 +804,8 @@ Code.initLanguage = function() {
  Code.stopProcessing = function(){
  	 // console.log('LOL');
  	 $("#processing_iframe").hide();
- 	 $("#runButton").show();
- 	 $("#stopButton").hide();
+ 	 // $("#runButton").show();
+ 	 // $("#stopButton").hide();
  	 stopSketch();
  }
  
@@ -804,8 +828,52 @@ Code.initLanguage = function() {
  	 	 console.log('YUPPPP');
  	 	 return;
  	 }
- 	 $.post( "processing.php", { guid: $("#guid").val(), code: xmlText } ).done(function(){
- 	 		 $("#saveButton span").html('Saved');
+ 	 $.post( "processing.php", { guid: $("#guid").val(), code: xmlText,passwd: $("#passwd").val() } ).done(function(data){
+ 	 		 if(data == "OK"){
+ 	 		 	 $("#saveButton span").html(data);
+ 	 		 }else{
+ 	 		 	 $("#saveButton span").html(data);
+ 	 		 }
+ 	 });
+ }
+ 
+ Code.fullScreen = function(){
+ 	 var canvas = document.getElementById("sketch");
+ 	 if(canvas.requestFullScreen)
+ 	 	 canvas.requestFullScreen();
+ 	 else if(canvas.webkitRequestFullScreen)
+ 	 	 canvas.webkitRequestFullScreen();
+ 	 else if(canvas.mozRequestFullScreen)
+ 	 	 canvas.mozRequestFullScreen();
+ }
+ 
+ Code.lock = function(){
+ 	 var key = prompt('Key to lock','****');
+ 	 console.log("chv: "+key);
+ 	 $.post( "processing.php", { guid: $("#guid").val(), action: 'lock', key: key } ).done(function(data){
+ 	 		 // $("#saveButton span").html('Unlocked');
+ 	 		 console.log(data);
+ 	 		 if(data == "OK"){
+ 	 		 	 $("#saveButton").hide();
+ 	 		 	 $("#lockButton").hide();
+ 	 		 	 $("#unlockButton").show();
+ 	 		 	 $("#passwd").val("");
+ 	 		 }
+ 	 });
+ }
+ Code.unlock = function(){
+ 	 var key = prompt('Key to unlock','****');
+ 	 
+ 	 $.post( "processing.php", { guid: $("#guid").val(), action: 'unlock', key: key } ).done(function(data){
+ 	 		 console.log(data);
+ 	 		 if(data == "OK"){
+ 	 		 	 $("#saveButton").show();
+ 	 		 	 $("#lockButton").show();
+ 	 		 	 $("#unlockButton").hide();
+ 	 		 	 $("#passwd").val(key);
+ 	 		 }else{
+ 	 		 	 $("#unlockButton span").html(data);
+ 	 		 }
  	 });
  }
  // Code.xmlUpdate = function(){
@@ -859,3 +927,5 @@ $(document).ready(function(){
 		
 		
 });
+
+

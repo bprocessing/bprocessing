@@ -1,7 +1,7 @@
 <? session_start();
 
 if(!isset($_GET['n'])) {
-	header('Location: http://'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI].'?n='.uniqid());
+	header('Location: https://'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI].'?n='.uniqid());
 }
 
 ?>
@@ -13,16 +13,23 @@ if(!isset($_GET['n'])) {
   <title>Programming processing with blocks</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="genericos.css">
-  <script src="blockly/blockly_compressed.js"></script>
+  
 </head>
 <body>
 <div id="processing_iframe" class="draggable">
-	<span class="dragger">hold me here</span>
+<span class="dragger genericon genericon-move" title="move" alt="move">
+	</span>
+<span id="stopButton" class="genericon genericon-close" title="close" alt="close"></span>
+	<span id="fullscreenButton" class="genericon genericon-fullscreen" title="fullscreen" alt="fullscreen"></span>
+	
+	
+	
 <div id="sketch-container">
       <canvas id="sketch"></canvas>
-      <textarea rows="20" cols="80" id="code" style="display:none;"></textarea>
+      
     </div>
    </div>
+   <textarea rows="20" cols="80" id="code" style="display:none;"></textarea>
 <?php /* <iframe id="processing_iframe" src="https://bprocessing.eempo.net/processing.php" frameborder="0" allowfullscreen></iframe> */ ?>
   <table width="100%" height="100%">
     <tr>
@@ -54,23 +61,36 @@ if(!isset($_GET['n'])) {
             <td class="tabmin">&nbsp;</td>
             <td id="tab_dart" class="taboff">Dart</td>
             <td class="tabmin">&nbsp;</td>
-            <?php /*<td id="tab_xml" class="taboff">XML</td> */ ?>
+            <td id="tab_xml" class="taboff">XML</td>
             <td class="tabmax utilities_buttons">
+            
+            <button id="runButton" class="genericon genericon-youtube" title="Run" alt="Run"><span>Run</span></button>
+            
                <button id="saveButton" class="genericon genericon-edit" title="Save" alt="Save"><span>Save</span></button>
                
               <button id="linkButton" class="notext" title="..." style="display:none;">
                 <img src='/blockly/media/1x1.gif' class="link icon21">
               </button>
-              <button id="stopButton" class="genericon genericon-hide" title="Hide" alt="Hide"><span>Hide</span></button>
-              <button id="runButton" class="genericon genericon-show" title="Show" alt="Show"><span>Show</span></button>
+              <button id="lockButton" class="genericon genericon-lock" title="Lock" alt="Lock"><span>Lock</span></button>
+              <button id="unlockButton" class="genericon genericon-key" title="Unlock" alt="Unlock"><span>Unlock</span></button>
               
-              <button id="undoButton" class="genericon genericon-previous" alt="Undo" title="Undo"><span>Undo</span></button>
+              <!--<button id="stopButton" class="genericon genericon-close" title="Stop" alt="Stop"><span>Stop</span></button>-->
+              <!--<button id="stopButton" class="genericon genericon-fullscreen" title="Fullscreen" alt="Fullscreen"><span>Fullscreen</span></button>-->
+              <!--<button id="stopButton" class="genericon genericon-hide" title="Hide" alt="Hide"><span>Hide</span></button>
+              <button id="runButton" class="genericon genericon-show" title="Show" alt="Show"><span>Show</span></button>-->
+              
+              <!--<button id="undoButton" class="genericon genericon-previous" alt="Undo" title="Undo"><span>Undo</span></button>
               <button id="redoButton" alt="Redo" title="Redo" class="genericon genericon-next" title="genericon-play"><span>Redo</span></button>
-              <span>|</span>
+              -->
+              
               <button id="trashButton" class="genericon genericon-trash" title="Clear" alt="Clear"><span>Clear</span>
               </button>
+              
+              
+              <!--<button id="lockButton" class="genericon genericon-unlock" title="Unlock" alt="Unlock"><span>Unlock</span></button>-->
+              <!--<span>|</span>
               <button id="showXML" class="genericon genericon-code" title="XML" alt="XML"><span>XML</span></button>
-             
+              <button id="showCode" class="genericon genericon-cog" title="Processing" alt="Processing"><span>Processing</span></button>-->
               
               <a href="https://jsbin.com/bewerahozi/edit?js,output" target="_blank"><img src='https://static.jsbin.com/images/dave.min.svg' class="run icon21" alt="jsbin" title="jsbin"></a>
               <a href="http://rapidtables.com/web/color/RGB_Color.htm" target="_blank"><img src='https://i.ytimg.com/vi/sr_vL2anfXA/maxresdefault.jpg' class="run icon21"  alt="rgb" title="rgb"></a>
@@ -834,14 +854,46 @@ if(!isset($_GET['n'])) {
 
 ?>
 <input type="hidden" id="guid" value="<?php echo stripslashes($_GET['n'])?>">
+<input type="hidden" id="passwd" value="">
 
 
 </body>
 <!--<script src="../storage.js"></script>-->
+  <!--<script type="text/javascript" src="//bprocessing.eempo.net/devel/js/loader.js"></script>-->
+  
+ <script type="text/javascript" src="//bprocessing.eempo.net/devel/js/jquery-2.2.0.min.js"></script>
+                               
+<script type="text/javascript" src="blockly/blockly_compressed.js"></script>
+<script type="text/javascript" src="blockly/blocks/logic.js"></script>
+<script type="text/javascript" src="blockly/blocks/loops.js"></script>
+<script type="text/javascript" src="blockly/blocks/math.js"></script>
+<script type="text/javascript" src="blockly/blocks/text.js"></script>
+<script type="text/javascript" src="blockly/blocks/lists.js"></script>
+<script type="text/javascript" src="blockly/blocks/colour.js"></script>
+<script type="text/javascript" src="blockly/blocks/variables.js"></script>
+<script type="text/javascript" src="blockly/blocks/procedures.js"></script>
+<script type="text/javascript" src="blockly/blocks/processing.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/logic.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/loops.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/math.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/text.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/lists.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/colour.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/variables.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/procedures.js"></script>
+<script type="text/javascript" src="blockly/generators/javascript/processing.js"></script>
+<script type="text/javascript" src="js/processing.min.js"></script>
+<script type="text/javascript" src="js/processing-helper.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="code.js"></script>                                           
+                                                              
   
   
   
   <!-- <script src="blockly/blocks_compressed.js"></script> -->
+  <!--<script src="blockly/blockly_compressed.js"></script>
+  
   <script src="blockly/blocks/logic.js"></script>
 <script src="blockly/blocks/loops.js"></script>
 <script src="blockly/blocks/math.js"></script>
@@ -850,11 +902,11 @@ if(!isset($_GET['n'])) {
 <script src="blockly/blocks/colour.js"></script>
 <script src="blockly/blocks/variables.js"></script>
 <script src="blockly/blocks/procedures.js"></script>
-<script src="blockly/blocks/processing.js"></script>
+<script src="blockly/blocks/processing.js"></script>-->
   
   <!--<script src="blockly/javascript_compressed.js"></script>-->
-  
-  <script src="blockly/generators/javascript.js"></script>
+  <!--
+<script src="blockly/generators/javascript.js"></script>
 <script src="blockly/generators/javascript/logic.js"></script>
 <script src="blockly/generators/javascript/loops.js"></script>
 <script src="blockly/generators/javascript/math.js"></script>
@@ -864,15 +916,16 @@ if(!isset($_GET['n'])) {
 <script src="blockly/generators/javascript/variables.js"></script>
 <script src="blockly/generators/javascript/procedures.js"></script>
 <script src="blockly/generators/javascript/processing.js"></script>
-
+-->
   <!--<script src="blockly/python_compressed.js"></script>
   <script src="blockly/php_compressed.js"></script>
   <script src="blockly/dart_compressed.js"></script>-->
+  <!--
   <script src="js/processing.min.js"></script>
   <script src="js/processing-helper.js"></script>
   <script src="js/jquery-2.2.0.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   
-  <script src="code.js"></script>
+  <script src="code.js"></script>-->
 <!--<script src="js/analytics.js"></script>-->
 </html>

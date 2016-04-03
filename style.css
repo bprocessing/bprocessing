@@ -171,22 +171,30 @@ button {
     top: 0;
     margin-top: 85px;
     z-index: 5000;
-    right: 0;
+
     margin-right: 80px;
 }
 #tab_python,#tab_php,#tab_dart{
 	display:none;
 }
 #processing_iframe{
-	
+	border: 2px solid black;
 }
-.dragger{
-	cursor:grab;
-	color:#ddd;
+.draggable{
 	background-color:#ddd;
+	padding:7px;
 }
-.dragger{
-	cursor:grabbing;
+
+span.dragger{
+	cursor:move;
+	width: 100%;
+}
+#processing_iframe{
+	margin-left:100px;
+}
+#fullscreenButton,#stopButton{
+	float:right;
+	cursor:pointer;
 }
 .genericon span{
 	font-family:Arial;
